@@ -1,0 +1,9 @@
+
+# system files
+env/
+.vscode/
+.git/
+.github/
+
+# dataset files
+dataset/
