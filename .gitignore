@@ -6,4 +6,5 @@ env/
 .github/
 
 # dataset files
-dataset/
+datasets/
+src/augmentation/output/
