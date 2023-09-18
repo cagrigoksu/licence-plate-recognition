@@ -20,10 +20,10 @@ def transformer(img_folder, annot_folder_path):
         label_name = img_name + '.txt'
         
         label_path = annot_folder_path + label_name
-        
-        horizontalFlip(str(img_path), label_path, img_name)
-        
-        counter+=1
+                    
+        result = horizontalFlip(str(img_path), label_path, img_name)    
+        counter = counter + result
+            
     
     print('{} images horizontally flipped and saved.'.format(str(counter)))
     return 
@@ -54,9 +54,9 @@ def horizontalFlip(img_path, label_path, save_name):
         boxes = trns['bboxes']
         
         # save image and annotation file in YOLO format 
-        cv2.imwrite('./src/augmentation/output/images/'+ save_name + '_hf.jpg', img_transformed)    
+        cv2.imwrite('./src/ml_data_processing/outputs/augmentation/images/'+ save_name + '_hf.jpg', img_transformed)    
         
-        with open(r'src/augmentation/output/labels/'+ save_name + '_hf.txt' , 'w') as f:     
+        with open(r'src/ml_data_processing/outputs/augmentation/labels/'+ save_name + '_hf.txt' , 'w') as f:     
             for box in boxes:
                 f.write(str(box[-1]))
                 f.write(' '+str(box[0]))
@@ -64,12 +64,12 @@ def horizontalFlip(img_path, label_path, save_name):
                 f.write(' '+str(box[2]))
                 f.write(' '+str(box[3]))
                 f.write('\n')
+            
+        return 1
     
     except:
         print('Failed:', save_name)
-    
-    
-    return
+        return 0
 
 
 transformer(img_folder_path, annot_folder_path)
